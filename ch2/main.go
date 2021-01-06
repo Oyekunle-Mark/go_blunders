@@ -12,7 +12,7 @@ func main() {
 	flag.Parse()
 
 	fmt.Printf(
-		"%f = %f, %f = %f\n",
+		"%s = %s, %s = %s\n",
 		tempconv.Celsius(*temperature),
 		tempconv.CToF(tempconv.Celsius(*temperature)),
 		tempconv.Fahrenheit(*temperature),
