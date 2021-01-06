@@ -20,6 +20,7 @@ func main() {
 
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "dup2: %v\n", err)
+				continue
 			}
 
 			countLines(f, counts)
