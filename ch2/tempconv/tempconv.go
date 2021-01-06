@@ -1,3 +1,4 @@
+// Provides conversion between Celsius and Fahrenheit temperature scales
 package tempconv
 
 import "fmt"
