@@ -14,6 +14,8 @@ func main() {
 	fmt.Println(numbers)
 }
 
+// appendInt appends an int to a slice of int and returns
+// the result of the operation
 func appendInt(original []int, newItem int) []int {
 	var result []int
 	newLength := len(original) + 1
