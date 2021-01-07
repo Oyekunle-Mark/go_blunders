@@ -1,7 +1,17 @@
 package main
 
-func main() {
+import "fmt"
 
+func main() {
+	var numbers []int
+
+	numbers = appendInt(numbers, 1)
+	numbers = appendInt(numbers, 2)
+	numbers = appendInt(numbers, 3)
+	numbers = appendInt(numbers, 4)
+	numbers = appendInt(numbers, 5)
+
+	fmt.Println(numbers)
 }
 
 func appendInt(original []int, newItem int) []int {
@@ -21,6 +31,6 @@ func appendInt(original []int, newItem int) []int {
 		copy(result, original)
 	}
 
-	result[newLength] = newItem
+	result[len(original)] = newItem
 	return result
 }
