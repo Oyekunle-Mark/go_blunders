@@ -18,7 +18,7 @@ func (a *Artiste) SingHeartOut(lyrics []string) error {
 	}
 
 	for _, word := range lyrics {
-		fmt.Printf("%s", word)
+		fmt.Printf("%s ", word)
 	}
 
 	return nil

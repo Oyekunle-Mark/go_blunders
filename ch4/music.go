@@ -3,11 +3,17 @@ package main
 import "go_blunders/ch4/singer"
 
 func main() {
-	
+	artiste := &singer.Artiste{
+		Name:  "Ginger",
+		Genre: "Blues",
+		ID:    1,
+	}
+
+	startMusic(artiste)
 }
 
 func startMusic(s singer.Singer) {
-	song := []string {
+	song := []string{
 		"hello",
 		"song!",
 	}
