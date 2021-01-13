@@ -1,9 +1,11 @@
 package palindrome
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestPalindrome(t *testing.T) {
-	if !IsPalindrome("detartracted") {
+	if !IsPalindrome("detartrated") {
 		t.Error(`IsPalindrome("detartrated") = false`)
 	}
 
