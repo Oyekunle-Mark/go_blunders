@@ -33,3 +33,27 @@ func TestCanalPalindrome(t *testing.T) {
 		t.Errorf(`IsPalindrome(%q) = false`, input)
 	}
 }
+
+func TestIsPalindrome(t *testing.T) {
+	var tests = []struct {
+		input    string
+		expected bool
+	}{
+		{"", true},
+		{"a", true},
+		{"aa", true},
+		{"ab", false},
+		{"kayak", true},
+		{"detartrated", true},
+		{"A man, a plan, a canal: Panama", true}, {"Evil I did dwell; lewd did I live.", true}, {"Able was I ere I saw Elba", true},
+		{"été", true},
+		{"Et se resservir, ivresse reste.", true},
+		{"palindrome", false}, {"desserts", false},
+	}
+
+	for _, testCase := range tests {
+		if result := IsPalindrome(testCase.input); result != testCase.expected {
+			t.Errorf("IsPalindrome(%q) = %v", testCase.input, result)
+		}
+	}
+}
