@@ -11,10 +11,10 @@ func trimBST(root *TreeNode, low int, high int) *TreeNode {
 		return nil
 	}
 	if root.Val < low {
-		return root.Right
+		return trimBST(root.Right, low, high)
 	}
 	if root.Val > high {
-		return root.Left
+		return trimBST(root.Left, low,  high)
 	}
 
 	root.Left = trimBST(root.Left, low, high)
