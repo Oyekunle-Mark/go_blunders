@@ -1,28 +1,23 @@
 package main
 
-import "sort"
-
 func findErrorNums(nums []int) []int {
-	sort.Ints(nums)
+	maxNum := len(nums)
 	var result []int
-	currentNum := 1
+	numMap := make(map[int]bool)
 
-	for i, num := range nums {
-		if i > 0 {
-			if num == nums[i-1] {
-				result = append(result, num)
-
-				if num == currentNum {
-					result = append(result, currentNum-1)
-				} else {
-					result = append(result, currentNum)
-				}
-
-				return result
-			}
+	for _, num := range nums {
+		if _, ok := numMap[num]; !ok {
+			numMap[num] = true
+		} else {
+			result = append(result, num)
 		}
+	}
 
-		currentNum++
+	for i := 1; i <= maxNum; i++ {
+		if _, ok := numMap[i]; !ok {
+			result = append(result, i)
+			break
+		}
 	}
 
 	return result
