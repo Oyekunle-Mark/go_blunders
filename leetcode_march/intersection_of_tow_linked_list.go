@@ -6,17 +6,19 @@ type ListNode struct {
 }
 
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
-	nodeStore := make(map[*ListNode]bool)
+	nodeStore := make(map[*ListNode]bool) // hold list node from lists
 
-	current := headA
+	current := headA // head of list headA
 
+	// for all node, store
 	for current != nil {
 		nodeStore[current] = true
 		current = current.Next
 	}
 
-	current = headB
+	current = headB // head of list headB
 
+	// for all node in headB, the first node found in store is intersection point
 	for current != nil {
 		if _, ok := nodeStore[current]; ok {
 			return current
@@ -25,5 +27,5 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 		current = current.Next
 	}
 
-	return nil
+	return nil // not found
 }
