@@ -6,6 +6,8 @@ type ListNode struct {
 }
 
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	// first pass
+
 	//nodeStore := make(map[*ListNode]bool) // hold list node from lists
 	//
 	//current := headA // head of list headA
@@ -30,22 +32,26 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	//return nil // not found
 
 	// second pass
-	currentA := headA
-	currentB := headB
 
+	currentA := headA // point currentA to head of headA list
+	currentB := headB // point currentB to head of headB list
+
+	// loop while both list node are not equivalent
 	for currentA != currentB {
+		// at end of currentA, start at the beginning of headB list
 		if currentA == nil {
 			currentA = headB
-		} else {
+		} else { // otherwise, advance pointer
 			currentA = currentA.Next
 		}
 
+		// at end of currentB, start at the beginning of headA list
 		if currentB == nil {
 			currentB = headA
-		} else {
+		} else { // otherwise advance pointer
 			currentB = currentB.Next
 		}
 	}
 
-	return currentA
+	return currentA // returning meeting point
 }
