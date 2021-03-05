@@ -7,16 +7,25 @@ type TreeNode struct {
 }
 
 func averageOfLevels(root *TreeNode) []float64 {
+	treeHeight := findTreeHeight(root, 0)
+	var averageNodePerLevel []float64
 
+	for i := 1; i <= treeHeight; i++ {
+		var nodesAtCurrentLevel []int
+		levelOrderNodes(root, 1, i, &nodesAtCurrentLevel)
+		averageNodePerLevel = append(averageNodePerLevel, findAverage(nodesAtCurrentLevel))
+	}
+
+	return averageNodePerLevel
 }
 
-func levelOrderNodes(node *TreeNode, current int, target int, nodeVals []int) {
+func levelOrderNodes(node *TreeNode, current int, target int, nodeVals *[]int) {
 	if node == nil {
 		return
 	}
 
 	if current == target {
-		nodeVals = append(nodeVals, node.Val)
+		*nodeVals = append(*nodeVals, node.Val)
 		return
 	}
 
@@ -39,8 +48,8 @@ func findTreeHeight(root *TreeNode, level int) int {
 		return level
 	}
 
-	leftSubTreeHeight := findTreeHeight(root.Left, level + 1)
-	rightSubTreeHeight := findTreeHeight(root.Right, level + 1)
+	leftSubTreeHeight := findTreeHeight(root.Left, level+1)
+	rightSubTreeHeight := findTreeHeight(root.Right, level+1)
 
 	if leftSubTreeHeight >= rightSubTreeHeight {
 		return leftSubTreeHeight
