@@ -10,7 +10,7 @@ func averageOfLevels(root *TreeNode) []float64 {
 
 }
 
-func inOrderNodes(node *TreeNode, current int, target int, nodeVals []int) {
+func levelOrderNodes(node *TreeNode, current int, target int, nodeVals []int) {
 	if node == nil {
 		return
 	}
@@ -20,6 +20,6 @@ func inOrderNodes(node *TreeNode, current int, target int, nodeVals []int) {
 		return
 	}
 
-	inOrderNodes(node.Left, current + 1, target, nodeVals)
-	inOrderNodes(node.Right, current + 1, target, nodeVals)
+	levelOrderNodes(node.Left, current + 1, target, nodeVals)
+	levelOrderNodes(node.Right, current + 1, target, nodeVals)
 }
