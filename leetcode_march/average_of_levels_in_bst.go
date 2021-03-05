@@ -39,12 +39,12 @@ func findTreeHeight(root *TreeNode, level int) int {
 		return level
 	}
 
-	leftSubTree := findTreeHeight(root.Left, level + 1)
-	rightSubTree := findTreeHeight(root.Right, level + 1)
+	leftSubTreeHeight := findTreeHeight(root.Left, level + 1)
+	rightSubTreeHeight := findTreeHeight(root.Right, level + 1)
 
-	if leftSubTree >= rightSubTree {
-		return leftSubTree
+	if leftSubTreeHeight >= rightSubTreeHeight {
+		return leftSubTreeHeight
 	} else {
-		return rightSubTree
+		return rightSubTreeHeight
 	}
 }
