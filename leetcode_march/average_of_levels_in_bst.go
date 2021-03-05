@@ -33,3 +33,18 @@ func findAverage(nodeVals []int) float64 {
 
 	return sum / float64(len(nodeVals))
 }
+
+func findTreeHeight(root *TreeNode, level int) int {
+	if root == nil {
+		return level
+	}
+
+	leftSubTree := findTreeHeight(root.Left, level + 1)
+	rightSubTree := findTreeHeight(root.Right, level + 1)
+
+	if leftSubTree >= rightSubTree {
+		return leftSubTree
+	} else {
+		return rightSubTree
+	}
+}
