@@ -21,15 +21,17 @@ func (s ByLength) Less(i, j int) bool {
 
 func minimumLengthEncoding(words []string) int {
 	sort.Sort(ByLength(words)) // sort words by length
-	encoding := ""
+	encoding := ""             // hold encoding
 
+	// loop for all word in words
 	for _, word := range words {
-		subStringStartIndex := strings.Index(encoding, word)
+		subStringStartIndex := strings.LastIndex(encoding, word) // find the start index of the last substring of word in encoding, if word is substring
 
-		if subStringStartIndex != -1 && encoding[subStringStartIndex + len(word)] == '#' {
+		// word is not a substring or substring in word is not immediately followed by an '#'
+		if subStringStartIndex == -1 || encoding[subStringStartIndex+len(word)] != '#' {
 			encoding += word + "#"
 		}
 	}
 
-	return len(encoding)
+	return len(encoding) // return encoding length
 }
