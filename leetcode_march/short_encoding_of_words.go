@@ -1,6 +1,9 @@
 package main
 
-import "strings"
+import (
+	"sort"
+	"strings"
+)
 
 type ByLength []string
 
@@ -13,16 +16,17 @@ func (s ByLength) Swap(i, j int) {
 }
 
 func (s ByLength) Less(i, j int) bool {
-	return len(s[i]) < len(s[j])
+	return len(s[i]) > len(s[j])
 }
 
 func minimumLengthEncoding(words []string) int {
+	sort.Sort(ByLength(words)) // sort words by length
 	encoding := ""
 
 	for _, word := range words {
-		wordInEncoding := strings.Contains(encoding, word)
+		subStringStartIndex := strings.Index(encoding, word)
 
-		if !wordInEncoding {
+		if subStringStartIndex != -1 && encoding[subStringStartIndex + len(word)] == '#' {
 			encoding += word + "#"
 		}
 	}
