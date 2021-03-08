@@ -22,7 +22,7 @@ func (m *MyHashMap) Hash(key int) uint {
 
 	h := djb2Hash(&buf)
 
-	return h % uint(blockSize)
+	return h % uint(BucketSize)
 }
 
 /** value will always be non-negative. */
