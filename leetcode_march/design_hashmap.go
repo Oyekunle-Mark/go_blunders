@@ -64,7 +64,14 @@ func (m *MyHashMap) Get(key int) int {
 
 /** Removes the mapping of the specified value key if this map contains a mapping for the key */
 func (m *MyHashMap) Remove(key int) {
+	mapIndex := m.Hash(key)
+	bucket := m.buckets[mapIndex]
 
+	for e := bucket.Front(); e != nil; e = e.Next() {
+		if e.Value.(MapValue).key == key {
+			bucket.Remove(e)
+		}
+	}
 }
 
 func djb2Hash(buf *bytes.Buffer) uint {
