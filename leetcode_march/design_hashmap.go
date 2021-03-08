@@ -50,7 +50,16 @@ func (m *MyHashMap) Put(key int, value int) {
 
 /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
 func (m *MyHashMap) Get(key int) int {
+	mapIndex := m.Hash(key)
+	bucket := m.buckets[mapIndex]
 
+	for e := bucket.Front(); e != nil; e = e.Next() {
+		if e.Value.(MapValue).key == key {
+			return e.Value.(MapValue).value
+		}
+	}
+
+	return -1
 }
 
 /** Removes the mapping of the specified value key if this map contains a mapping for the key */
