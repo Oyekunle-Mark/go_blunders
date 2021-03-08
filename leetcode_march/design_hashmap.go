@@ -2,18 +2,21 @@ package main
 
 import (
 	"bytes"
+	"container/list"
 	"strconv"
 )
 
 const BucketSize = 1000000
 
 type MyHashMap struct {
-	bucket [BucketSize]int
+	bucket [BucketSize]*list.List
 }
 
 /** Initialize your data structure here. */
 func Constructor() MyHashMap {
-
+	return MyHashMap{
+		bucket: [BucketSize]*list.List{},
+	}
 }
 
 func (m *MyHashMap) Hash(key int) uint {
