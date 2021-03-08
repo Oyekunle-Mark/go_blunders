@@ -24,6 +24,7 @@ func Constructor() MyHashMap {
 	}
 }
 
+// Hash returns the hash of the key
 func (m *MyHashMap) Hash(key int) uint {
 	var buf bytes.Buffer
 	buf.WriteString(strconv.FormatInt(int64(key), 10))
@@ -38,7 +39,10 @@ func (m *MyHashMap) Put(key int, value int) {
 	mapIndex := m.Hash(key)
 	bucket := m.buckets[mapIndex]
 
-	if bucket != nil {
+	if bucket == nil {
+		m.buckets[mapIndex] = list.New()
+		m.buckets[mapIndex].PushBack(MapValue{key, value})
+	} else {
 		for e := bucket.Front(); e != nil; e = e.Next() {
 			if e.Value.(MapValue).key == key {
 				e.Value = MapValue{key, value}
@@ -49,9 +53,6 @@ func (m *MyHashMap) Put(key int, value int) {
 		m.buckets[mapIndex].PushBack(MapValue{key, value})
 		return
 	}
-
-	m.buckets[mapIndex] = list.New()
-	m.buckets[mapIndex].PushBack(MapValue{key, value})
 }
 
 /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
@@ -59,11 +60,13 @@ func (m *MyHashMap) Get(key int) int {
 	mapIndex := m.Hash(key)
 	bucket := m.buckets[mapIndex]
 
-	if bucket != nil {
-		for e := bucket.Front(); e != nil; e = e.Next() {
-			if e.Value.(MapValue).key == key {
-				return e.Value.(MapValue).value
-			}
+	if bucket == nil {
+		return -1
+	}
+
+	for e := bucket.Front(); e != nil; e = e.Next() {
+		if e.Value.(MapValue).key == key {
+			return e.Value.(MapValue).value
 		}
 	}
 
@@ -75,13 +78,16 @@ func (m *MyHashMap) Remove(key int) {
 	mapIndex := m.Hash(key)
 	bucket := m.buckets[mapIndex]
 
-	if bucket != nil {
-		for e := bucket.Front(); e != nil; e = e.Next() {
-			if e.Value.(MapValue).key == key {
-				bucket.Remove(e)
-			}
+	if bucket == nil {
+		return
+	}
+
+	for e := bucket.Front(); e != nil; e = e.Next() {
+		if e.Value.(MapValue).key == key {
+			bucket.Remove(e)
 		}
 	}
+
 }
 
 func djb2Hash(buf *bytes.Buffer) uint {
