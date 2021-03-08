@@ -38,13 +38,19 @@ func (m *MyHashMap) Put(key int, value int) {
 	mapIndex := m.Hash(key)
 	bucket := m.buckets[mapIndex]
 
-	for e := bucket.Front(); e != nil; e = e.Next() {
-		if e.Value.(MapValue).key == key {
-			e.Value = MapValue{key, value}
-			return
+	if bucket != nil {
+		for e := bucket.Front(); e != nil; e = e.Next() {
+			if e.Value.(MapValue).key == key {
+				e.Value = MapValue{key, value}
+				return
+			}
 		}
+
+		m.buckets[mapIndex].PushBack(MapValue{key, value})
+		return
 	}
 
+	m.buckets[mapIndex] = list.New()
 	m.buckets[mapIndex].PushBack(MapValue{key, value})
 }
 
@@ -53,9 +59,11 @@ func (m *MyHashMap) Get(key int) int {
 	mapIndex := m.Hash(key)
 	bucket := m.buckets[mapIndex]
 
-	for e := bucket.Front(); e != nil; e = e.Next() {
-		if e.Value.(MapValue).key == key {
-			return e.Value.(MapValue).value
+	if bucket != nil {
+		for e := bucket.Front(); e != nil; e = e.Next() {
+			if e.Value.(MapValue).key == key {
+				return e.Value.(MapValue).value
+			}
 		}
 	}
 
@@ -67,9 +75,11 @@ func (m *MyHashMap) Remove(key int) {
 	mapIndex := m.Hash(key)
 	bucket := m.buckets[mapIndex]
 
-	for e := bucket.Front(); e != nil; e = e.Next() {
-		if e.Value.(MapValue).key == key {
-			bucket.Remove(e)
+	if bucket != nil {
+		for e := bucket.Front(); e != nil; e = e.Next() {
+			if e.Value.(MapValue).key == key {
+				bucket.Remove(e)
+			}
 		}
 	}
 }
