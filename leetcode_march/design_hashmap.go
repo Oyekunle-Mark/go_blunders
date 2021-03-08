@@ -8,14 +8,19 @@ import (
 
 const BucketSize = 1000000
 
+type MapValue struct {
+	key   int
+	value int
+}
+
 type MyHashMap struct {
-	bucket [BucketSize]*list.List
+	buckets [BucketSize]*list.List
 }
 
 /** Initialize your data structure here. */
 func Constructor() MyHashMap {
 	return MyHashMap{
-		bucket: [BucketSize]*list.List{},
+		buckets: [BucketSize]*list.List{},
 	}
 }
 
@@ -30,7 +35,17 @@ func (m *MyHashMap) Hash(key int) uint {
 
 /** value will always be non-negative. */
 func (m *MyHashMap) Put(key int, value int) {
+	mapIndex := m.Hash(key)
+	bucket := m.buckets[mapIndex]
 
+	for e := bucket.Front(); e != nil; e = e.Next() {
+		if e.Value.(MapValue).key == key {
+			e.Value = MapValue{key, value}
+			return
+		}
+	}
+
+	m.buckets[mapIndex].PushBack(MapValue{key, value})
 }
 
 /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
