@@ -1,6 +1,7 @@
 package main
 
 func intToRoman(num int) string {
+	// maps roman symbols to their integer values
 	table := map[string]int{
 		"I":  1,
 		"IV": 4,
@@ -17,18 +18,22 @@ func intToRoman(num int) string {
 		"M":  1000,
 	}
 
-	numeralsOrder := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
+	// orders roman symbols from largest to smallest
+	symbolOrder := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
 
-	result := ""
-	currentIndex := 0
+	result := ""      // hold the symbols as they are deduced
+	currentIndex := 0 // signifies the current symbol in the symbolOrder
 
+	// iterate while num is greater than zero
 	for num > 0 {
-		remainder := num / table[numeralsOrder[currentIndex]]
+		// if current symbol's integer value can be extracted from number. That is, is num bigger than or equals current symbol's integer values
+		remainder := num / table[symbolOrder[currentIndex]]
 
+		// if so, add the symbol to result, and decrement the integer value from num
 		if remainder > 0 {
-			result += numeralsOrder[currentIndex]
-			num -= table[numeralsOrder[currentIndex]]
-		} else {
+			result += symbolOrder[currentIndex]
+			num -= table[symbolOrder[currentIndex]]
+		} else { // otherwise, move down the symbol to the next one
 			currentIndex++
 		}
 	}
