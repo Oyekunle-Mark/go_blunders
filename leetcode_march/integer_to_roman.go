@@ -22,5 +22,16 @@ func intToRoman(num int) string {
 	result := ""
 	currentIndex := 0
 
+	for num > 0 {
+		remainder := num / table[numeralsOrder[currentIndex]]
+
+		if remainder > 0 {
+			result += numeralsOrder[currentIndex]
+			num -= table[numeralsOrder[currentIndex]]
+		} else {
+			currentIndex++
+		}
+	}
+
 	return result
 }
