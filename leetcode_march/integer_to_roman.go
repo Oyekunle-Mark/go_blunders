@@ -17,5 +17,10 @@ func intToRoman(num int) string {
 		"M":  1000,
 	}
 
-	numeralsOrder := []string{"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"}
+	numeralsOrder := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
+
+	result := ""
+	currentIndex := 0
+
+	return result
 }
